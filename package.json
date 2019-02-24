@@ -1,0 +1,76 @@
+{
+  "name": "mirex",
+  "version": "0.0.1",
+  "description": "Minimal reactive state primitives for JavaScript",
+  "author": "Matti Lankinen <m.lankinen@iki.fi>",
+  "license": "MIT",
+  "keywords": [
+    "reactive programming",
+    "frp",
+    "typescript",
+    "state management"
+  ],
+  "main": "dist/mirex.js",
+  "types": "lib/index.d.ts",
+  "jsnext:main": "dist/mirex.esm.js",
+  "module": "dist/mirex.esm.js",
+  "sideEffects": false,
+  "scripts": {
+    "prebuild": "rm -rf lib dist && mkdir lib dist",
+    "postbuild": "echo 'gzipped bundle sizes'; for js in dist/*.js; do echo \"$js : $(gzip-size $js)\"; done",
+    "package": "for c in build/*; do rollup -c $c; done",
+    "compile": "tsc -p ./tsconfig.build.json",
+    "build": "npm run compile && npm run package",
+    "lint": "tslint 'src/**/*.ts' 'test/**/*.ts'",
+    "prettify": "prettier --write 'src/**/*.ts'",
+    "linterfixes": "tslint --fix --project .",
+    "format": "npm run prettify && npm run linterfixes",
+    "ts-node": "ts-node -O '{\"module\": \"commonjs\"}'",
+    "test": "jest",
+    "test:ci": "jest --runInBand",
+    "prepublishOnly": "npm t && npm run lint && npm run build"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@types/jest": "^24.0.6",
+    "@types/node": "^11.9.5",
+    "babel-plugin-annotate-pure-calls": "^0.4.0",
+    "gzip-size-cli": "^3.0.0",
+    "jest": "^24.1.0",
+    "prettier": "^1.16.4",
+    "rollup": "^1.2.3",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-buble": "^0.19.6",
+    "rollup-plugin-replace": "^2.1.0",
+    "rollup-plugin-uglify": "^6.0.2",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "typescript": "3.3.x",
+    "typescript-snapshots-plugin": "^1.5.3"
+  },
+  "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "ignoreCodes": [
+            151001
+          ]
+        }
+      }
+    },
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "testRegex": "/test/[^_].*\\.ts$",
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
