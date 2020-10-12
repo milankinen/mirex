@@ -29,6 +29,7 @@ function idF<T>(val: T): FunctorImpl<T> {
 
 class Const<A> implements FunctorImpl<A> {
   constructor(public val: A) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public fmap<B>(fn: (a: A) => B): FunctorImpl<B> {
     return (this as any) as FunctorImpl<B>
   }

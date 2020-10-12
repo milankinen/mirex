@@ -1,7 +1,7 @@
-import buble from "rollup-plugin-buble"
-import babel from "rollup-plugin-babel"
-import replace from "rollup-plugin-replace"
-import { uglify } from "rollup-plugin-uglify"
+import buble from "@rollup/plugin-buble"
+import babel from "@rollup/plugin-babel"
+import replace from "@rollup/plugin-replace"
+import { terser } from "rollup-plugin-terser"
 
 export default {
   input: "lib/index.js",
@@ -26,9 +26,6 @@ export default {
       plugins: ["annotate-pure-calls"],
       exclude: "node_modules/**",
     }),
-    uglify({
-      compress: true,
-      mangle: true,
-    }),
+    terser(),
   ],
 }

@@ -2,16 +2,17 @@ import * as L from "./lens"
 
 const $Mirex: symbol = typeof Symbol !== "undefined" ? Symbol("Mirex") : ("$$Mirex" as any)
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Impl {
-  const NONE: any = new class None {}()
+  const NONE: any = new (class None {})()
 
   type Version = number
   type EffectQueue = Set<Effect>
 
+  const effs: EffectQueue = new Set()
   let version: Version = 0
-  let inTx: boolean = false
+  let inTx = false
   let tracking: Set<ITrackable<any>> | null = null
-  let effs: EffectQueue = new Set()
 
   interface IPullable<T> {
     pull(): T
@@ -25,6 +26,7 @@ namespace Impl {
     untrack(): void
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface INotifiable<T> {
     notify(): void
   }
@@ -125,6 +127,7 @@ namespace Impl {
     private cache: T = NONE
     private ver: Version = -1
 
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     constructor(private src: IAtom<any> & ITrackable<any>, private lens: any) {
       super()
     }
@@ -317,10 +320,13 @@ export interface Value<T> {
   (): T
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Atom<T> extends Value<T> {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Cursor<T> extends Atom<T> {}
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Reaction<T> extends Value<T> {}
 
 export type Untrack = () => void

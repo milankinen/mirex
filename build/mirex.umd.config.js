@@ -1,6 +1,6 @@
-import buble from "rollup-plugin-buble"
-import babel from "rollup-plugin-babel"
-import replace from "rollup-plugin-replace"
+import buble from "@rollup/plugin-buble"
+import babel from "@rollup/plugin-babel"
+import replace from "@rollup/plugin-replace"
 
 export default {
   input: "lib/index.js",
